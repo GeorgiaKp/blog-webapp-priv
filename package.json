@@ -1,0 +1,20 @@
+{
+  "name": "blog2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeorgiaKp/blog-webapp-priv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeorgiaKp/blog-webapp-priv/issues"
+  },
+  "homepage": "https://github.com/GeorgiaKp/blog-webapp-priv#readme"
+}
