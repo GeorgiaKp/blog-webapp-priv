@@ -13,16 +13,16 @@ export default function TopBar() {
 
 	return (
 		<div className="top">
-			<div className="topLeft">Hello!</div>
+			<div className="topLeft">HELLO!
+				<i class="topIcon fas fa-paw"></i>
+			</div>
 			<div className="topCenter">
 				<ul className="topList">
-					<li className="topListItem">
-						<Link className="link" to="/">HOME</Link>
-					</li>
-					<li className="topListItem"><Link className="link" to="/">ABOUT</Link></li>
-					<li className="topListItem"><Link className="link" to="/">CONTACT</Link></li>
-					<li className="topListItem"><Link className="link" to="/write">WRITE</Link></li>
-					<li className="topListItem" onClick={handleLogout}>
+					<li><Link className="link" to="/">HOME</Link></li>
+					<li><Link className="link" to="/">ABOUT</Link></li>
+					<li><Link className="link" to="/">CONTACT</Link></li>
+					<li><Link className="link" to="/write">WRITE</Link></li>
+					<li onClick={handleLogout}>
 						{user && "LOGOUT"}
 					</li>
 				</ul>
@@ -30,16 +30,12 @@ export default function TopBar() {
 			<div className="topRight">
 			{
 				user ? (<Link to="/settings">
-						<img className="topImg" src={PF+user.profilePic} alt="" />
+						<img src={PF+user.profilePic} alt="" />
 						</Link>
 				) : (
 					<ul className="topList">
-						<li className="topListItem">
-							<Link className="link" to="/login">LOGIN</Link>
-						</li>
-						<li className="topListItem">
-						<Link className="link" to="/register">REGISTER</Link>
-						</li>
+						<li><Link className="link" to="/login">LOGIN</Link></li>
+						<li><Link className="link" to="/register">REGISTER</Link></li>
 					</ul>
 				)
 			}

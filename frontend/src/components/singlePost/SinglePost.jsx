@@ -74,7 +74,7 @@ export default function SinglePost() {
 					<span className="singlePostAuthor">
 						Author: <Link className="link" to={`/?user=${post.username}`}><b>{post.username}</b></Link>
 					</span>
-					<span className="singlePostDate"><i>{new Date(post.createdAt).toDateString()}</i></span>
+					<span><i>{new Date(post.createdAt).toDateString()}</i></span>
 				</div>
 				{updateMode ? (
 		          <textarea
@@ -82,11 +82,10 @@ export default function SinglePost() {
 		            value={desc}
 		            onChange={(e) => setDesc(e.target.value)}
 		          />
-		        ) : (
-					<p className="singlePostDesc">{desc}</p>
+		        ) : (<p className="singlePostDesc">{desc}</p>
 				)}
 				{updateMode && (
-		          <button className="singlePostButton" onClick={handleUpdate}>
+		          <button className="updateButton" onClick={handleUpdate}>
 		            Update
 		          </button>
 		        )}

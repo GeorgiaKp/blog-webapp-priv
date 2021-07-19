@@ -19,7 +19,7 @@ export default function Sidebar() {
 			
 				<div className="sidebarItem">
 					<span className="sidebarTitle">ABOUT ME</span>
-					<img className="sidebarImg" src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/is_my_cat_normal_slideshow/1800x1200_is_my_cat_normal_slideshow.jpg" alt="" />
+					<img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/is_my_cat_normal_slideshow/1800x1200_is_my_cat_normal_slideshow.jpg" alt="" />
 					<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
 					</p>
@@ -29,7 +29,7 @@ export default function Sidebar() {
 					<ul className="sidebarList">
 						{cats.map((c) =>(
 							<Link className="link" to={`/?cat=${c.name}`} >
-							<li className="sidebarListItem">{c.name}</li>
+							<li>{c.name}</li>
 							</Link>
 						))}
 					</ul>
