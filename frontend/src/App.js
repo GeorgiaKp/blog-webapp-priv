@@ -6,6 +6,9 @@ import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
+
+import {Context} from "./context/Context"
+import {useContext} from "react"
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -15,7 +18,7 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const currentUser = false;
+  const {user} = useContext(Context)
   return (
   <Router>
     <TopBar />
@@ -24,16 +27,16 @@ function App() {
             <Home />
        </Route>
        <Route path="/register">
-           {currentUser ? <Home /> : <Register />}
+           {user ? <Home /> : <Register />}
        </Route>
        <Route path="/login">
-           {currentUser ? <Home /> : <Login />}
+           {user ? <Home /> : <Login />}
        </Route>
        <Route path="/write">
-            {currentUser ? <Write /> : <Register />}
+            {user ? <Write /> : <Register />}
        </Route>
        <Route path="/settings">
-            {currentUser ? <Settings /> : <Register />}
+            {user ? <Settings /> : <Register />}
        </Route>
        <Route path="/post/:postId">
             <Single />

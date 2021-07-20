@@ -3,11 +3,10 @@ import "./post.css"
 // const moment = require('moment')
 
 export default function Post({post}) {
+	const PF = "http://localhost:13371/images/";
 	return (
 		<div className="post">
-		{post.photo && (
-			<a href="/post/1"><img className="postImg" src={post.photo} alt="" /></a>
-		)}
+		{post.photo && <img className="postImg" src={PF + post.photo} alt="" />}
 			<div className="postInfo">
 				<div className="postCats">
 					{post.categories.map((c) => 
