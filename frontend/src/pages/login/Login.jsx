@@ -28,16 +28,27 @@ export default function Login() {
   // console.log(isFetching)
 
 
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
+
   return (
     <div className="login">
       <span className="loginTitle">Login</span>
       <form className="loginForm" onSubmit={handleSubmit}>
+
         <label>Username</label>
         <input className="loginInput" 
           type="text" 
           placeholder="Enter your username."
           ref={userRef}
         />
+
+        <label>Email</label>
+        <input className="loginInput" type="email" placeholder="Enter your email..." />
         <label>Password</label>
         <input 
           className="loginInput" 
@@ -45,7 +56,11 @@ export default function Login() {
           placeholder="Enter your password."
           ref={passwordRef}
         />
+
         <button className="loginButton" type="submit" disabled={isFetching}>Login</button>
+
+        <button className="loginButton">Login</button>
+
       </form>
         <button className="loginRegisterButton" type="submit">
           <Link className="link" to="/register">Register</Link>
