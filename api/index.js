@@ -1,52 +1,56 @@
-const express = require("express")
-const app = express()
-const path = require('path')
-const dotenv = require("dotenv")
-const bodyParser = require('body-parser')
-const mongoose = require("mongoose")
-const authRoute = require("./routes/auth")
-const userRoute = require("./routes/users")
-const postRoute = require("./routes/posts")
-const categoryRoute = require("./routes/categories")
-const multer = require("multer")
+const express = require('express');
 
-dotenv.config()
-app.use(express.json())
-app.use("/images", express.static(path.join(__dirname, "/images")))
+const app = express();
+const path = require('path');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const multer = require('multer');
+const authRoute = require('./routes/auth');
+const userRoute = require('./routes/users');
+const postRoute = require('./routes/posts');
+const categoryRoute = require('./routes/categories');
 
-mongoose.connect(process.env.MONGO_URL, {
-	useNewUrlParser: true, 
-	useUnifiedTopology: true,
-	useCreateIndex: true,
-	useFindAndModify: true
-}) .then(console.log("Connected to MongoDB"))
-   .catch(err => console.log(err))
+async function main() {
+  dotenv.config();
+  app.use(express.json());
+  app.use('/images', express.static(path.join(__dirname, '/images')));
 
-const storage = multer.diskStorage({
-	destination:(req, file, callback) => {
-		callback(null,"images")
-	}, filename:(req, file, callback) => {
-		callback(null, req.body.name)
-	}
-})
+  try {
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: true,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  console.log('Connected to MongoDB');
 
-app.use('/', express.static(path.resolve(__dirname, 'assets')))
+  const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+      callback(null, 'images');
+    },
+    filename: (req, file, callback) => {
+      callback(null, req.body.name);
+    },
+  });
 
-const upload = multer({storage:storage})
-app.post("/api/upload", upload.single("file"),(req,res) => {
-	res.status(200).json("File has been uploaded")
-});
+  app.use('/', express.static(path.resolve(__dirname, 'assets')));
 
-app.use("/api/auth", authRoute)
-app.use("/api/users", userRoute)
-app.use("/api/posts", postRoute)
-app.use("/api/categories", categoryRoute)
+  const upload = multer({ storage });
+  app.post('/api/upload', upload.single('file'), (req, res) => {
+    res.status(200).json('File has been uploaded');
+  });
 
+  app.use('/api/auth', authRoute);
+  app.use('/api/users', userRoute);
+  app.use('/api/posts', postRoute);
+  app.use('/api/categories', categoryRoute);
 
-// app.use("/", (req,res) => {
-// 	console.log("hi Ian")
-// })
+  app.listen(13371, '127.0.0.1', () => {
+    console.log('Server up');
+  });
+}
 
-app.listen(13371, '127.0.0.1', () => {
-	console.log("Server up")
-} );
+main();
