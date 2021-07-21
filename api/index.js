@@ -36,17 +36,16 @@ async function main() {
     },
   });
 
-  app.use('/', express.static(path.resolve(__dirname, 'assets')));
-
   const upload = multer({ storage });
   app.post('/api/upload', upload.single('file'), (req, res) => {
     res.status(200).json('File has been uploaded');
   });
 
-  app.use('/api/auth', authRoute);
-  app.use('/api/users', userRoute);
-  app.use('/api/posts', postRoute);
-  app.use('/api/categories', categoryRoute);
+  const apiPrefix = '/api/';
+  app.use(`${apiPrefix}auth`, authRoute);
+  app.use(`${apiPrefix}users`, userRoute);
+  app.use(`${apiPrefix}posts`, postRoute);
+  app.use(`${apiPrefix}categories`, categoryRoute);
 
   app.listen(13371, '127.0.0.1', () => {
     console.log('Server up');
