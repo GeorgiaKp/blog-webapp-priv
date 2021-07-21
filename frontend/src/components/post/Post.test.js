@@ -2,5 +2,5 @@
 // import Post from './Post'
 
 test('post render test', () => {
-	expect(true).toBe(true)
-})
+  expect(true).toBe(true);
+});

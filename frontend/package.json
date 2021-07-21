@@ -15,6 +15,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "lint": "eslint .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -23,9 +24,20 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "prettier"
+    ],
+    "plugins":["prettier"],
+    "rules": {
+      "prettier/prettier": "warn",
+      "react/react-in-jsx-scope": "off",
+      "no-multi-spaces": "warn"
+    }
   },
+  "eslintIgnore": [
+    "node_modules",
+    "build/*"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
