@@ -8,52 +8,56 @@ router.post("/", async (req, res) => {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.send("There was an error");
   }
 });
 
 //UPDATE POST
 router.put("/:id", async (req, res) => {
+  let post;
   try {
-    const post = await Post.findById(req.params.id);
-    if (post.username === req.body.username) {
-      try {
-        const updatedPost = await Post.findByIdAndUpdate(
-          req.params.id,
-          {
-            $set: req.body,
-          },
-          { new: true }
-        );
-        res.status(200).json(updatedPost);
-      } catch (err) {
-        console.error(err)
-        res.send("There was an error");
-      }
-    } else {
-      res.status(401).json("You can update only your post!");
-    }
+    post = await Post.findById(req.params.id);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.send("There was an error");
+  }
+  if (post.username !== req.body.username) {
+    return res.status(401).json("You can update only your post!");
+  }
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(req.params.id,
+      { 
+        $set: req.body, 
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    console.error(err);
+    res.send("There was an error");
   }
 });
 
 //DELETE POST
 router.delete("/:id", async (req, res) => {
+  let post;
   try {
-    const post = await Post.findById(req.params.id);
-    if (post.username === req.body.username) {
-      try {
-        await post.delete();
-        res.status(200).json("Post has been deleted...");
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(401).json("You can delete only your post!");
-    }
+    post = await Post.findById(req.params.id);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.send("There was an error");
+  }
+  if (post.username !== req.body.username) {
+    console.log(401)
+    return res.send("You can delete only your post!");
+  }
+  try {
+    await post.delete();
+    res.status(200).json("Post has been deleted...");
+  } catch (err) {
+    console.error(err);
+    res.send("There was an error");
   }
 });
 
@@ -63,7 +67,8 @@ router.get("/:id", async (req, res) => {
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.send("There was an error");
   }
 });
 
@@ -86,7 +91,8 @@ router.get("/", async (req, res) => {
     }
     res.status(200).json(posts);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.send("There was an error");
   }
 });
 

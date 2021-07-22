@@ -33,8 +33,8 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
     res.status(200).json(others);
   } catch (err) {
-    res.status(500)
-    // res.status(500).json(err);
+    console.error(err);
+    res.send("There was an error");
   }
 });
 
