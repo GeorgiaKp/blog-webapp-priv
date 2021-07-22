@@ -5,7 +5,6 @@ import { Context } from "../../context/Context";
 import axios from "axios";
 
 export default function Settings() {
-
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -53,7 +52,10 @@ export default function Settings() {
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
-            <img src={file ? URL.createObjectURL(file) : PF+user.profilePic} alt="" />
+            <img
+              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              alt=""
+            />
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>{" "}
             </label>
@@ -65,11 +67,22 @@ export default function Settings() {
             />
           </div>
           <label>Username</label>
-          <input type="text" placeholder={user.username} onChange={(e) => setUsername(e.target.value)} />
+          <input
+            type="text"
+            placeholder={user.username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <label>Email</label>
-          <input type="email" placeholder={user.email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            placeholder={user.email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label>Password</label>
-          <input type="password" onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button className="settingsSubmitButton" type="submit">
             Update
           </button>

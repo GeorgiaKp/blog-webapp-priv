@@ -9,6 +9,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
 import { Context } from "./context/Context";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const { user } = useContext(Context);
@@ -19,10 +20,14 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/register">{user ? <Home /> : <Register />}</Route>
-        <Route path="/login">{user ? <Home /> : <Login />}</Route>
-        <Route path="/write">{user ? <Write /> : <Register />}</Route>
-        <Route path="/settings">{user ? <Settings /> : <Register />}</Route>
+        <ProtectedRoute path="/register" component={Register} user={user} flag={"reg"} />
+        <ProtectedRoute path="/login" component={Login} user={user} flag={"log"}/>
+        <ProtectedRoute path="/write" component={Write} user={user} flag={"write"}/>
+        <ProtectedRoute path="/settings" component={Settings} user={user} flag={"set"}/>
+        {/*<Route path="/register">{user ? <Home /> : <Register />}</Route>*/}
+        {/*<Route path="/login">{user ? <Home /> : <Login />}</Route>*/}
+        {/*<Route path="/write">{user ? <Write /> : <Register />}</Route>
+        <Route path="/settings">{user ? <Settings /> : <Register />}</Route>*/}
         <Route path="/post/:postId">
           <Single />
         </Route>
