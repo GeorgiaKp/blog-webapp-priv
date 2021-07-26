@@ -43,7 +43,7 @@ async function main() {
   });
 
   const apiPrefix = '/api/';
-  app.use(`${apiPrefix}auth`, authRoute);
+  app.use(`${apiPrefix}auth`, authRoute.router);
   app.use(`${apiPrefix}users`, userRoute);
   app.use(`${apiPrefix}posts`, postRoute);
   app.use(`${apiPrefix}categories`, categoryRoute);
