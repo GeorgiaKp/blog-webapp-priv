@@ -1,36 +1,14 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import React, { useContext } from "react";
+import { Redirect } from "react-router-dom";
+import { Context } from "./context/Context";
 
-function ProtectedRoute({ user, component: Component, flag, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        if (!user) {
-          if (flag === "reg" || flag === "log") {
-            return <Component />;
-          } else {
-            return (
-              <Redirect
-                to={{ pathname: "/register", state: { from: props.location } }}
-              />
-            );
-          }
-        }
-        if (user) {
-          if (flag === "write" || flag === "set") {
-            return <Component />;
-          } else {
-            return (
-              <Redirect
-                to={{ pathname: "/", state: { from: props.location } }}
-              />
-            );
-          }
-        }
-      }}
-    />
-  );
+function ProtectedRoute(Component, flag) {
+  return function ProtectedRouteComponent() {
+    const { user } = useContext(Context);
+    if (user && (flag === "reg" || flag === "log")) return <Redirect to="/" />;
+    if (!user && (flag === "set" || flag === "write")) return <Redirect to="/register" />;
+    return <Component />;
+  }
 }
 
 export default ProtectedRoute;
