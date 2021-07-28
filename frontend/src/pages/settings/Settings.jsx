@@ -1,10 +1,11 @@
 import "./settings.css";
+import protectedRoute from "../../protectedRoute";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 
-export default function Settings() {
+function Settings() {
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -99,3 +100,5 @@ export default function Settings() {
     </div>
   );
 }
+
+export default protectedRoute(Settings);

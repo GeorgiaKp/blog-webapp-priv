@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./register.css";
+import publicRoute from "../../publicRoute";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -64,4 +65,4 @@ function Register() {
   );
 }
 
-export default withRouter(Register);
+export default publicRoute(Register);

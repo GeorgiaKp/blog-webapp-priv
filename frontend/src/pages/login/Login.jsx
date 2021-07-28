@@ -3,8 +3,9 @@ import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./login.css";
+import publicRoute from "../../publicRoute";
 
-export default function Login() {
+function Login() {
   const userRef = useRef();
   const passwordRef = useRef();
   const { dispatch, isFetching } = useContext(Context);
@@ -53,3 +54,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default publicRoute(Login);

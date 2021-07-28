@@ -8,8 +8,6 @@ import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
-import ProtectedRoute from "./ProtectedRoute";
-
 function App() {
   return (
     <Router>
@@ -18,26 +16,16 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/register" component={Register} flag={"reg"} />
-        <Route path="/login" component={Login} flag={"log"} />
-        <Route path="/write" component={Write} flag={"write"} />
-        <Route path="/settings" component={Settings} flag={"set"} />
-        {/*<Route path="/register">{user ? <Home /> : <Register />}</Route>*/}
-        {/*<Route path="/login">{user ? <Home /> : <Login />}</Route>*/}
-        {/*<Route path="/write">{user ? <Write /> : <Register />}</Route>
-        <Route path="/settings">{user ? <Settings /> : <Register />}</Route>*/}
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/write" component={Write} />
+        <Route path="/settings" component={Settings} />
         <Route path="/post/:postId">
           <Single />
         </Route>
       </Switch>
-      {/* <Home /> */}
-      {/* <Single /> */}
-      {/* <Write /> */}
-      {/* <Settings /> */}
-      {/* <Login /> */}
-      {/* <Register /> */}
     </Router>
   );
 }
 
-export default ProtectedRoute(App);
+export default App;

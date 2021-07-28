@@ -1,9 +1,10 @@
 import "./write.css";
+import protectedRoute from "../../protectedRoute";
 import { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../context/Context";
 
-export default function Write() {
+function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
@@ -72,4 +73,4 @@ export default function Write() {
   );
 }
 
-
+export default protectedRoute(Write);
