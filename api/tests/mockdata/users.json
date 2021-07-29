@@ -1,0 +1,148 @@
+[
+    {
+    "$__": {
+        "strictMode": true,
+        "selected": {},
+        "getters": {},
+        "_id": "60f30684118967189c011a85",
+        "wasPopulated": false,
+        "activePaths": {
+            "paths": {
+                "password": "init",
+                "email": "init",
+                "username": "init",
+                "profilePic": "init",
+                "_id": "init",
+                "createdAt": "init",
+                "updatedAt": "init",
+                "__v": "init"
+            },
+            "states": {
+                "ignore": {},
+                "default": {},
+                "init": {
+                    "_id": true,
+                    "profilePic": true,
+                    "username": true,
+                    "email": true,
+                    "password": true,
+                    "createdAt": true,
+                    "updatedAt": true,
+                    "__v": true
+                },
+                "modify": {},
+                "require": {}
+            },
+            "stateNames": [
+                "require",
+                "modify",
+                "init",
+                "default",
+                "ignore"
+            ]
+        },
+        "pathsToScopes": {},
+        "cachedRequired": {},
+        "session": null,
+        "$setCalled": {},
+        "emitter": {
+            "_events": {},
+            "_eventsCount": 0,
+            "_maxListeners": 0
+        },
+        "$options": {
+            "skipId": true,
+            "isNew": false,
+            "willInit": true,
+            "defaults": true
+        }
+    },
+    "isNew": false,
+    "$locals": {},
+    "$op": null,
+    "_doc": {
+        "profilePic": "1626601928864cat.jpg",
+        "_id": "60f30684118967189c011a85",
+        "username": "lebrie",
+        "email": "lebrie@hotmail.com",
+        "password": "$2b$10$Aof95wNviG/dh1crwGH/7uzy514IHB.QOWodB/zLfdr5PKKdF7jX6",
+        "createdAt": "2021-07-17T16:34:12.079Z",
+        "updatedAt": "2021-07-18T09:57:56.398Z",
+        "__v": 0
+    },
+    "$init": true
+},
+    {
+    "$__": {
+        "strictMode": true,
+        "selected": {},
+        "getters": {},
+        "_id": "60f3f1a9a5d6231bac0615a3",
+        "wasPopulated": false,
+        "activePaths": {
+            "paths": {
+                "password": "init",
+                "email": "init",
+                "username": "init",
+                "profilePic": "init",
+                "_id": "init",
+                "createdAt": "init",
+                "updatedAt": "init",
+                "__v": "init"
+            },
+            "states": {
+                "ignore": {},
+                "default": {},
+                "init": {
+                    "_id": true,
+                    "profilePic": true,
+                    "username": true,
+                    "email": true,
+                    "password": true,
+                    "createdAt": true,
+                    "updatedAt": true,
+                    "__v": true
+                },
+                "modify": {},
+                "require": {}
+            },
+            "stateNames": [
+                "require",
+                "modify",
+                "init",
+                "default",
+                "ignore"
+            ]
+        },
+        "pathsToScopes": {},
+        "cachedRequired": {},
+        "session": null,
+        "$setCalled": {},
+        "emitter": {
+            "_events": {},
+            "_eventsCount": 0,
+            "_maxListeners": 0
+        },
+        "$options": {
+            "skipId": true,
+            "isNew": false,
+            "willInit": true,
+            "defaults": true
+        }
+    },
+    "isNew": false,
+    "$locals": {},
+    "$op": null,
+    "_doc": {
+        "profilePic": "",
+        "_id": "60f3f1a9a5d6231bac0615a3",
+        "username": "ian",
+        "email": "ian@hotmail.com",
+        "password": "$2b$10$u5kfg5StP1hQaxp6EjrAfOE0x9DysavG9fC1UgCRpPhlrL1X6kg6C",
+        "createdAt": "2021-07-18T09:17:29.406Z",
+        "updatedAt": "2021-07-18T09:17:29.406Z",
+        "__v": 0
+    },
+    "$init": true
+}
+]
