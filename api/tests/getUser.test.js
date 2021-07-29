@@ -4,7 +4,7 @@ const httpMock = require('node-mocks-http');
 const mockUserList = require('./mockdata/users.json')
 
 model.findById = jest.fn();
-let req , res;
+let req, res;
 
 beforeEach(()=>{
     req = httpMock.createRequest();
@@ -15,7 +15,7 @@ afterEach(()=>{
     model.findById.mockClear();
 });
 
-describe("users.getUserById",()=>{
+describe("users controller: get user by id",()=>{
     test("UserGetController function is defined", () => {
         expect(typeof users.UserGetController).toBe('function')
     });
@@ -30,13 +30,14 @@ describe("users.getUserById",()=>{
         expect(res._getJSONData()).toStrictEqual(others);
     })
 
-    test("User.findById throws exception", async()=>{
+    test("User.findById throws exception when needed", async()=>{
         req.params.id = mockUserList[0]._id;
         model.findById.mockRejectedValue("fake exception from findbyid");
         const res = {
             send: jest.fn(s => s)
         };
         await users.UserGetController(req, res);
+        expect(model.findById).toHaveBeenCalledWith(req.params.id);
         expect(res.send.mock.calls.length).toEqual(1);
         expect(res.send.mock.calls[0][0]).toEqual('There was an error');
     })
