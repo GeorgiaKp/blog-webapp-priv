@@ -11,19 +11,18 @@ let req, res;
 
 beforeEach(()=>{
     modelU.findByIdAndDelete.mockClear();
-    
+    modelU.findById.mockClear();
     req = httpMock.createRequest();
-    req.params.id = "123"
     res = httpMock.createResponse();
 })
 
 describe("users controller: delete user by id",()=>{
-    test.only("UserDeleteController function is defined", () => {
+    test("UserDeleteController function is defined", () => {
         expect(typeof users.UserDeleteController).toBe('function')
     });
 
-    test.only("User.findByIdAndDelete throws exception when user not found", async () => {
-        req.params.id = mockUserList[0]._id;
+    test("User.findByIdAndDelete throws exception when user not found", async () => {
+        req.params.id = mockUserList[0]._doc._id;
         modelU.findById.mockRejectedValue("fake exception from findbyid");
         const res = {
             send: jest.fn(s => s)
@@ -34,32 +33,31 @@ describe("users controller: delete user by id",()=>{
         expect(res.send.mock.calls[0][0]).toEqual('User not found!');
     })
 
-    test("delete a valid user", async () => {
-        modelU.findByIdAndDelete.mockResolvedValue(mockUserList[0])
+    test.only("delete a valid user", async () => {
+        req.params.id = mockUserList[0]._doc._id;
+        req.body.userId = mockUserList[0]._doc._id;
+        modelU.findById.mockReturnValue(req.params.id);
+        modelP.deleteMany.mockReturnValue({ username: mockUserList[0]._doc.username })
+        modelU.findByIdAndDelete.mockReturnValue(req.params.id);
         await users.UserDeleteController(req, res);
-        expect(modelP.deleteMany).toBeCalledWith({ username: mockUserList[0].username });
-        expect(modelU.findByIdAndDelete).toBeCalledWith("123");
+        expect(modelP.deleteMany).toBeCalledWith({ username: mockUserList[0]._doc.username });
+        expect(modelU.findByIdAndDelete).toBeCalledWith(req.params.id);
         expect(res.statusCode).toEqual(200);
-        expect(res._getJSONData()).toStrictEqual(mockUserList[0])
+        expect(res._getJSONData()).toStrictEqual("User has been deleted.")
     });
 
-    // test("return 401 when to be deleted user is not yours", async ()=> {
-    //     modelU.findByIdAndDelete.mockResolvedValue(null);
-    //     await users.UserDeleteController(req, res);
-    //     expect(modelU.findByIdAndDelete).toBeCalledWith("123")
-    //     expect(res.statusCode).toBe(404);
-    //     expect(res._getJSONData()).toStrictEqual("User Not Found");
+    test("error msg when to be deleted user is not yours", async ()=> {
+        req.params.id = mockUserList[0]._doc._id;
+        req.body.userId = mockUserList[1]._doc._id;
+        modelU.findById.mockReturnValue(req.params.id)
+        const res = {
+            send: jest.fn(s => s)
+        };
+        await users.UserDeleteController(req, res);
+        expect(req.params.id).not.toEqual(req.body.userId)
+        expect(res.send.mock.calls.length).toEqual(1);
+        expect(res.send.mock.calls[0][0]).toEqual("You can delete only your account!");
         
-    // });
-
-    // test("return 500 when model.findByIdAndDelete throw exception ", async () => {
-    //     modelU.findByIdAndDelete.mockRejectedValue("fake error from mongoose findByIdAndDelete api");
-    //     await users.UserDeleteController(req, res);
-    //     expect(res.statusCode).toBe(500);
-    //     expect(modelU.findByIdAndDelete).toBeCalledWith("123")
-    //     expect(res._getData()).toStrictEqual("fake error from mongoose findByIdAndDelete api");
-    //   });
-
-
+    });
 
 });

@@ -21,7 +21,7 @@ describe("users controller: get user by id",()=>{
     });
 
     test("return a user by id", async () => {
-        req.params.id = mockUserList[0]._id;
+        req.params.id = mockUserList[0]._doc._id;
         model.findById.mockReturnValue(mockUserList[0]);
         await users.UserGetController(req, res);
         expect(model.findById).toHaveBeenCalledWith(req.params.id);
