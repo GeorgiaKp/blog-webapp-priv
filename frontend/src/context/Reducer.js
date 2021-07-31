@@ -42,6 +42,18 @@ const Reducer = (state, action) => {
         isFetching: false,
         error: true,
       };
+    case "DELETE_SUCCESS":
+      return {
+        user: false,
+        isFetching: false,
+        error: false,
+      };
+    case "DELETE_FAILURE":
+      return {
+        user: state.user,
+        isFetching: false,
+        error: true,
+      };
     default:
       return state;
   }

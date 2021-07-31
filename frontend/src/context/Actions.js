@@ -14,3 +14,11 @@ export const LoginFailure = () => ({
 export const Logout = () => ({
   type: "LOGOUT",
 });
+
+export const DeleteSuccess = () => ({
+  type: "DELETE_SUCCESS",
+});
+
+export const DeleteFailure = () => ({
+  type: "DELETE_FAILURE",
+});
