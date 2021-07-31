@@ -3,6 +3,7 @@ import protectedRoute from "../../protectedRoute";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import { DeleteSuccess, DeleteFailure } from "../../context/Actions";
 import axios from "axios";
 
 function Settings() {
@@ -43,18 +44,27 @@ function Settings() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete("/users/" + user._id, { data: { userId: user._id } });
+      dispatch(DeleteSuccess());
+    } catch (err) {
+      dispatch(DeleteFailure());
+    }
+  };
+
   return (
     <div className="settings">
       <div className="settingsWrapper">
         <div className="settingsTitle">
           <span className="settingsTitleUpdate">Update Your Account</span>
-          <span className="settingsTitleDelete">Delete Account</span>
+          <span className="settingsTitleDelete" onClick={handleDelete}>Delete Account</span>
         </div>
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              src={file ? URL.createObjectURL(file) : (user.profilePic ? PF + user.profilePic : PF +"default.jpeg")}
               alt=""
             />
             <label htmlFor="fileInput">
