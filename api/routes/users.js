@@ -9,8 +9,13 @@ async function UserUpdateController(req, res) {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
     }
+    let oldUser;
     try {
-      const oldUser = await User.findById(req.params.id);
+      oldUser = await User.findById(req.params.id);
+    } catch (err) {
+      return res.status(404).json("User not found!");
+    }
+    try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         {
@@ -23,8 +28,7 @@ async function UserUpdateController(req, res) {
       );
       res.status(200).json(updatedUser);
     } catch (err) {
-      console.error(err);
-      res.send("There was an error");
+      res.status(500).json("There was an error");
     }
   } else {
     res.status(401).json("You can update only your account!");
@@ -46,7 +50,6 @@ async function UserDeleteController(req, res) {
     return res.status(401).json("You can delete only your account!");
   }
   try {
-    // console.log(user)
     await Post.deleteMany({ username: user.username });
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted.");
@@ -65,8 +68,7 @@ async function UserGetController(req, res)  {
     const { password, ...others } = user._doc;
     res.status(200).json(others);
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    res.status(500).json("There was an error");
   }
 }
 
