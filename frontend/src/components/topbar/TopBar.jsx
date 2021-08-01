@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { Context } from '../../context/Context';
+import { Logout } from "../../context/Actions";
 import './topbar.scss';
 
 export default function TopBar() {
   const { user, dispatch } = useContext(Context);
-  const PF = 'http://localhost:13371/images/';
+  const PF = "http://localhost:13371/images/";
 
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch(Logout());
   };
 
   return (
@@ -32,7 +33,7 @@ export default function TopBar() {
         {
 			user ? (
   <Link to="/settings">
-    <img src={PF + user.profilePic} alt="" />
+    <img src={user.profilePic ? PF + user.profilePic : PF + "default.jpeg"} alt="" />
   </Link>
 			) : (
   <ul className="topList">
