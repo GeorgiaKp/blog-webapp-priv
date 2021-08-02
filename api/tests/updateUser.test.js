@@ -3,10 +3,12 @@ const modelU = require('../models/User');
 const modelP = require('../models/Post');
 const httpMock = require('node-mocks-http');
 const mockUserList = require('./mockdata/users.json')
+const bcrypt = require("bcrypt");
 
 modelU.findByIdAndUpdate = jest.fn();
 modelU.findById = jest.fn();
 modelP.updateMany = jest.fn();
+jest.mock('bcrypt');
 let req, res;
 
 beforeEach(()=>{
@@ -18,7 +20,7 @@ describe("users controller: update user by id",()=>{
         expect(typeof users.UserUpdateController).toBe('function')
     }); 
 
-    test.only("update an existing user", async () => {
+    test("update an existing user", async () => {
         req.params.id = mockUserList[1]._id;
         req.body.userId = mockUserList[1]._id;
         req.body.password = "1234567"
@@ -40,7 +42,7 @@ describe("users controller: update user by id",()=>{
         expect(res._getJSONData()).toStrictEqual(toUpdate2);
     });
 
-    test.only("return 401 when attempting to update not your account", async ()=>{
+    test("return 401 when attempting to update not your account", async ()=>{
         req.params.id = mockUserList[0]._id;
         req.body.userId = mockUserList[1]._id;
         await users.UserUpdateController(req, res);
@@ -50,7 +52,7 @@ describe("users controller: update user by id",()=>{
 
     });
 
-    test.only("return 403 when attempting to update with weak password", async ()=>{
+    test("return 403 when attempting to update with weak password", async ()=>{
         req.params.id = mockUserList[0]._id;
         req.body.userId = mockUserList[0]._id;
         req.body.password = "123"
@@ -68,7 +70,6 @@ describe("users controller: update user by id",()=>{
         expect(res.statusCode).toEqual(404);
         expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual("User not found!");
-
     })
 
     test("return 500 when findByIdAndUpdate raise exception", async ()=>{
@@ -78,6 +79,19 @@ describe("users controller: update user by id",()=>{
         expect(res.statusCode).toEqual(500);
         expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual("There was an error");
-
     })
+
+    
+    test('return 500 when bcrypt.genSalt rejects', async () => {
+      req.params.id = mockUserList[0]._id;
+      req.body.userId = mockUserList[0]._id;
+      req.body.password = "1234567"
+      modelU.findById.mockReturnValue(mockUserList[0]);
+      bcrypt.genSalt.mockRejectedValue('Hello from rejected genSalt');
+      await users.UserUpdateController(req, res);
+      expect(res.statusCode).toEqual(500);
+      expect(res._getJSONData()).toStrictEqual("There was an error!");
+  });
+  
+
 });
