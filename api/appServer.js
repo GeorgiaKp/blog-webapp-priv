@@ -19,7 +19,7 @@ class AppServer {
     this._categoryRoute = categoryRoute;
   }
 
-  async run() {
+  async runMongo() {
     dotenv.config();
     this._app.use(express.json());
     this._app.use('/images', express.static(path.join(__dirname, '/images')));
@@ -35,7 +35,9 @@ class AppServer {
       return;
     }
     console.log('Connected to MongoDB');     
+  }
 
+  async runApp() {
     const storage = multer.diskStorage({
       destination: (req, file, callback) => {
         callback(null, 'images');
@@ -51,9 +53,9 @@ class AppServer {
     });
 
     const apiPrefix = '/api/';
-    this._app.use(`${apiPrefix}auth`, this._authRoute);
-    this._app.use(`${apiPrefix}users`, this._userRoute);
-    this._app.use(`${apiPrefix}posts`, this._postRoute);
+    this._app.use(`${apiPrefix}auth`, this._authRoute.router);
+    this._app.use(`${apiPrefix}users`, this._userRoute.router);
+    this._app.use(`${apiPrefix}posts`, this._postRoute.router);
     this._app.use(`${apiPrefix}categories`, this._categoryRoute);
 
     return new Promise((resolve, reject) => {

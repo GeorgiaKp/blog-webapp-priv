@@ -5,7 +5,8 @@ dotenv.config();
 
 const PORT = process.env.port || 5000;
 const appServer = new AppServer(PORT);
-appServer.run()
+appServer.runMongo();
+appServer.runApp();
 
 
 
