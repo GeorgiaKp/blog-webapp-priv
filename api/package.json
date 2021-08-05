@@ -15,7 +15,8 @@
   "devDependencies": {
     "eslint": "^7.31.0",
     "jest": "^27.0.6",
-    "node-mocks-http": "^1.10.1"
+    "node-mocks-http": "^1.10.1",
+    "supertest": "^6.1.4"
   },
   "scripts": {
     "lint": "eslint .",
