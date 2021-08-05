@@ -19,13 +19,16 @@ describe("posts controller: create post",()=>{
     });
 
     test.only("create a valid post" , async()=>{
-        req.body = {...mockPost}
-        const newPost = new model(req.body)
-        newPost.save = jest.fn();
-        newPost.save.mockReturnValue(mockPostList[3]);
+        const newPost = new model(mockPost)
+        
+        newPost.save = jest.fn(() => Promise.resolve(mockPostList[3]));
+        // newPost.save.mockReturnValue(new Promise(function(resolve, reject) { setTimeout(() => resolve(mockPostList[3]), 1000); }));
+        const func = () => newPost.save();
+        const promise = func();
         await posts.PostCreateController(req, res);
         expect(newPost.save).toHaveBeenCalledWith();
-        expect(res.statusCode).toBe(200);
+        expect(promise).resolves.toEqual(mockPostList[3])
+        expect(res.statusCode).toBe(201);
         expect(res._getJSONData()).toStrictEqual(mockPostList[3]);
         
     });
