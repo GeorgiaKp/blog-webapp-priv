@@ -18,5 +18,15 @@
         "createdAt": "2021-07-18T09:17:29.406Z",
         "updatedAt": "2021-07-18T09:17:29.406Z",
         "__v": 0
+    },
+    {
+        "profilePic": "",
+        "_id": "610a21f8ace804171cc60b57",
+        "username": "toasty",
+        "email": "toastybrie@hotmail.com",
+        "password": "$2b$10$CL4KF2wYMCJvjeF0N1a3x.WS1YYCpux4P4gmoIHDiE17OgFMkqtD2",
+        "createdAt": "2021-08-04T05:13:28.756Z",
+        "updatedAt": "2021-08-04T05:13:28.756Z",
+        "__v": 0
     }
 ]
