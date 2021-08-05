@@ -3,12 +3,14 @@ const Post = require("../models/Post");
 
 async function PostCreateController(req, res) {
   const newPost = new Post(req.body);
+  // console.log("np",newPost)
   try {
+
     const savedPost = await newPost.save();
-    res.status(200).json(savedPost);
+    // console.log("sp",savedPost)
+    res.status(201).json(savedPost);
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    res.status(500).json("There was an error");
   }
 }
 
@@ -21,11 +23,10 @@ async function PostUpdateController(req, res) {
   try {
     post = await Post.findById(req.params.id);
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    return res.status(500).json("There was an error!");
   }
   if (post.username !== req.body.username) {
-    return res.status(401).json("You can update only your post!");
+    return res.status(401).json("You can update only your posts!");
   }
   try {
     const updatedPost = await Post.findByIdAndUpdate(req.params.id,
@@ -36,8 +37,7 @@ async function PostUpdateController(req, res) {
     );
     res.status(200).json(updatedPost);
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    res.status(500).json("There was an error");
   }
 }
 
@@ -48,20 +48,19 @@ async function PostDeleteController(req, res) {
   let post;
   try {
     post = await Post.findById(req.params.id);
+    // console.log("22ee",post)
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    return res.status(404).json("There was an error");
   }
   if (post.username !== req.body.username) {
-    console.log(401)
-    return res.send("You can delete only your post!");
+    return res.status(401).json("You can delete only your posts!");
   }
   try {
+    console.log("br",post.delete())
     await post.delete();
     res.status(200).json("Post has been deleted...");
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    res.status(500).json("There was an error");
   }
 }
 
@@ -74,8 +73,7 @@ async function PostGetController(req, res) {
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    res.status(500).json("There was an error");
   }
 }
 //GET POST
@@ -100,19 +98,17 @@ async function AllPostsGetController(req, res) {
     }
     res.status(200).json(posts);
   } catch (err) {
-    console.error(err);
-    res.send("There was an error");
+    res.status(500).json("There was an error");
   }
 }
 //GET ALL POSTS
 router.get("/", AllPostsGetController)
 
-// module.exports = {
-//   PostCreateController,
-//   PostUpdateController,
-//   PostDeleteController,
-//   PostGetController,
-//   AllPostsGetController,
-//   router
-// };
-module.exports = router;
+module.exports = {
+  PostCreateController,
+  PostUpdateController,
+  PostDeleteController,
+  PostGetController,
+  AllPostsGetController,
+  router
+};
