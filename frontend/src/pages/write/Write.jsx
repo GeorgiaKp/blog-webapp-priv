@@ -8,6 +8,7 @@ function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [failure, setFailure] = useState(false);
   const { user } = useContext(Context);
 
   const handleSubmit = async (e) => {
@@ -30,7 +31,9 @@ function Write() {
     try {
       const res = await axios.post("/posts", newPost);
       window.location.replace("/post/" + res.data._id);
-    } catch (err) {}
+    } catch (err) {
+      setFailure(true);
+    }
   };
 
   return (
@@ -69,6 +72,7 @@ function Write() {
           Publish
         </button>
       </form>
+      {failure && <span className="failAlert">Title has been already used.</span>}
     </div>
   );
 }

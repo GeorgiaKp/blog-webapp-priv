@@ -12,6 +12,7 @@ function Settings() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:13371/images/";
@@ -40,6 +41,7 @@ function Settings() {
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
+      setError(true);
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
@@ -102,6 +104,13 @@ function Settings() {
               style={{ color: "green", textAlign: "center", marginTop: "20px" }}
             >
               Profile has been updated.
+            </span>
+          )}
+          {error && (
+            <span
+              style={{ color: "red", textAlign: "center", marginTop: "20px" }}
+            >
+              You need a password with 6 or more characters.
             </span>
           )}
         </form>
