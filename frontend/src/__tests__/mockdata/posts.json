@@ -1,0 +1,50 @@
+[
+    {
+        "categories": [
+            "Dog"
+        ],
+        "_id": "60f30a6e118967189c011a90",
+        "username": "Ian",
+        "title": "A beautiful Dog",
+        "desc": "sitting on grass",
+        "photo": "1626540630748dog.jpg",
+        "createdAt": "2021-07-17T16:50:54.551Z",
+        "updatedAt": "2021-07-18T06:35:20.243Z",
+        "__v": 0
+    },
+    {
+        "categories": [
+            "Food"
+        ],
+        "_id": "60ed67f79fa6e72344f02d75",
+        "profilePic": [],
+        "username": "lebrie",
+        "title": "Nostimo turi",
+        "desc": "pragmatika nostimo",
+        "createdAt": "2021-07-13T10:16:23.249Z",
+        "updatedAt": "2021-07-13T14:20:18.257Z",
+        "__v": 0
+    },
+    {
+        "categories": [ 
+            "Food"
+        ],
+        "_id": "6107b75eba17a842208b7882",
+        "username": "Ian",
+        "title": "Delicious",
+        "desc": "TOAST",
+        "createdAt": "2021-08-02T09:14:06.928Z",
+        "updatedAt": "2021-08-02T09:46:39.109Z",
+        "__v": 0
+    },
+    {
+        "categories": [],
+        "_id": "6109166de6bc0f40ecb4f34b",
+        "username": "tost",
+        "title": "I am",
+        "desc": "a warm toast",
+        "createdAt": "2021-08-03T10:11:57.981Z",
+        "updatedAt": "2021-08-03T10:11:57.981Z",
+        "__v": 0
+    }
+]

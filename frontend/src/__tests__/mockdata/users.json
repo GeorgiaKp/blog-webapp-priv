@@ -1,0 +1,32 @@
+[
+    {
+        "profilePic": "1626601928864cat.jpg",
+        "_id": "60f30684118967189c011a85",
+        "username": "lebrie",
+        "email": "lebrie@hotmail.com",
+        "password": "$2b$10$Aof95wNviG/dh1crwGH/7uzy514IHB.QOWodB/zLfdr5PKKdF7jX6",
+        "createdAt": "2021-07-17T16:34:12.079Z",
+        "updatedAt": "2021-07-18T09:57:56.398Z",
+        "__v": 0
+    },
+    {
+        "profilePic": "",
+        "_id": "60f3f1a9a5d6231bac0615a3",
+        "username": "ian",
+        "email": "ian@hotmail.com",
+        "password": "$2b$10$u5kfg5StP1hQaxp6EjrAfOE0x9DysavG9fC1UgCRpPhlrL1X6kg6C",
+        "createdAt": "2021-07-18T09:17:29.406Z",
+        "updatedAt": "2021-07-18T09:17:29.406Z",
+        "__v": 0
+    },
+    {
+        "profilePic": "",
+        "_id": "610a21f8ace804171cc60b57",
+        "username": "toasty",
+        "email": "toastybrie@hotmail.com",
+        "password": "$2b$10$CL4KF2wYMCJvjeF0N1a3x.WS1YYCpux4P4gmoIHDiE17OgFMkqtD2",
+        "createdAt": "2021-08-04T05:13:28.756Z",
+        "updatedAt": "2021-08-04T05:13:28.756Z",
+        "__v": 0
+    }
+]
