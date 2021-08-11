@@ -1,4 +1,5 @@
 import "./header.css";
+import React from "react";
 
 export default function Header() {
   return (
@@ -10,7 +11,7 @@ export default function Header() {
       <img
         className="headerImg"
         src="https://www.enjpg.com/img/2020/tall-mountain-6.jpg"
-        alt=""
+        alt="background"
       />
     </div>
   );

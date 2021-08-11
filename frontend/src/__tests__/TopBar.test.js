@@ -8,20 +8,21 @@ import TopBar from "../components/topbar/TopBar";
 import { ContextProvider } from "../context/Context";
 const mockUserList = require("./mockdata/users.json");
 
-test.only("when user doesn't have profile pic, show the default one", () => {
+test("when user doesn't have profile pic, show the default one", () => {
   const user = mockUserList[1];
   const mockDispatch = jest.fn();
   const { getByAltText } = render(
-    <MemoryRouter>
-      <ContextProvider value={{
-          user: true,
-          isFetching: false,
-          error: false,
-          mockDispatch,
-        }}
-      ><TopBar />
-      </ContextProvider>
-    </MemoryRouter>
+    <ContextProvider value={{
+        user: true,
+        isFetching: false,
+        error: false,
+        mockDispatch,
+      }}
+    >
+      <MemoryRouter>
+        <TopBar />
+      </MemoryRouter>
+    </ContextProvider>
   );
   const imgsrc = "http://localhost:13371/images/default.jpeg";
   expect(user.profilePic).toBeFalsy();
@@ -29,6 +30,7 @@ test.only("when user doesn't have profile pic, show the default one", () => {
   expect(image).toHaveAttribute("src", imgsrc);
   expect(image).toHaveAttribute("alt", "profileImg");
 });
+
 
 test("login, register links route when clicked", () => {
   const history = createMemoryHistory();
