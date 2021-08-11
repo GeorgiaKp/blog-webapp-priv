@@ -10,21 +10,33 @@ const categoryRoute = require('./routes/categories');
 
 
 class AppServer {
-  constructor(serverPort) {
+
+  
+  constructor(serverPort, mongoURL, host) {
     this._app = express();
     this._port = serverPort;
+    this._mongoURL = mongoURL;
+    this._localhost = host;
     this._authRoute = authRoute;
     this._userRoute = userRoute;
     this._postRoute = postRoute;
     this._categoryRoute = categoryRoute;
-  }
 
-  async runMongo() {
     dotenv.config();
     this._app.use(express.json());
     this._app.use('/images', express.static(path.join(__dirname, '/images')));
+    
+    const apiPrefix = '/api/';
+    this._app.use(`${apiPrefix}auth`, this._authRoute.router);
+    this._app.use(`${apiPrefix}users`, this._userRoute.router);
+    this._app.use(`${apiPrefix}posts`, this._postRoute.router);
+    this._app.use(`${apiPrefix}categories`, this._categoryRoute.router);
+  }
+
+  async runMongo() {
+    
     try {
-      await mongoose.connect(process.env.MONGO_URL, {
+      await mongoose.connect(this._mongoURL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -34,7 +46,7 @@ class AppServer {
       console.log(err);
       return;
     }
-    console.log('Connected to MongoDB');     
+    return('Connected to MongoDB');   
   }
 
   async runApp() {
@@ -52,14 +64,8 @@ class AppServer {
       res.status(200).json('File has been uploaded');
     });
 
-    const apiPrefix = '/api/';
-    this._app.use(`${apiPrefix}auth`, this._authRoute.router);
-    this._app.use(`${apiPrefix}users`, this._userRoute.router);
-    this._app.use(`${apiPrefix}posts`, this._postRoute.router);
-    this._app.use(`${apiPrefix}categories`, this._categoryRoute);
-
     return new Promise((resolve, reject) => {
-      this._server = this._app.listen(this._port, '127.0.0.1', () => resolve('Server starts listening'));
+      this._server = this._app.listen(this._port, this._localhost, () => resolve('Server starts listening'));
     });
   }
 
