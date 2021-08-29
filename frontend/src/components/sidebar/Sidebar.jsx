@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,8 +9,9 @@ export default function Sidebar() {
 
   useEffect(() => {
     const getCats = async () => {
-      const res = await axios.get("/categories");
-      setCats(res.data);
+      const res = await axios.get("/categories").then(resp => resp.data);
+      console.log(res)
+      setCats(res);
     };
     getCats();
   }, []);
@@ -20,7 +22,7 @@ export default function Sidebar() {
           <span className="sidebarTitle">ABOUT ME</span>
           <img
             src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/is_my_cat_normal_slideshow/1800x1200_is_my_cat_normal_slideshow.jpg"
-            alt=""
+            alt="catimg"
           />
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -32,7 +34,7 @@ export default function Sidebar() {
           <ul className="sidebarList">
             {cats.map((c) => (
               <Link className="link" to={`/?cat=${c.name}`}>
-                <li>{c.name}</li>
+                <li key={`key-${c._id}`} data-testid="row">{c.name}</li>
               </Link>
             ))}
           </ul>
