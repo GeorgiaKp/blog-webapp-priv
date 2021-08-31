@@ -40,6 +40,7 @@ export default function TopBar() {
             />
           </Link>
         ) : (
+
           <ul className="topList">
             <li>
               <Link className="link" to="/login">LOGIN</Link>

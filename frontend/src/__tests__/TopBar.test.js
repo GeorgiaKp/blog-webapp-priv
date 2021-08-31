@@ -5,15 +5,16 @@ import userEvent from "@testing-library/user-event";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import TopBar from "../components/topbar/TopBar";
-import { ContextProvider } from "../context/Context";
+import { Context } from "../context/Context";
 const mockUserList = require("./mockdata/users.json");
 
-test("when user doesn't have profile pic, show the default one", () => {
-  const user = mockUserList[1];
+
+test("when user has profile pic, don't show the default one", () => {
+  let user = mockUserList[0];
   const mockDispatch = jest.fn();
   const { getByAltText } = render(
-    <ContextProvider value={{
-        user: true,
+    <Context.Provider value={{
+        user: mockUserList[0],
         isFetching: false,
         error: false,
         mockDispatch,
@@ -22,13 +23,12 @@ test("when user doesn't have profile pic, show the default one", () => {
       <MemoryRouter>
         <TopBar />
       </MemoryRouter>
-    </ContextProvider>
+    </Context.Provider>
   );
-  const imgsrc = "http://localhost:13371/images/default.jpeg";
-  expect(user.profilePic).toBeFalsy();
+  const imgsrc = `http://localhost:13371/images/${mockUserList[0].profilePic}`;
+  expect(user.profilePic).toBeTruthy();
   const image = getByAltText("profileImg");
   expect(image).toHaveAttribute("src", imgsrc);
-  expect(image).toHaveAttribute("alt", "profileImg");
 });
 
 
