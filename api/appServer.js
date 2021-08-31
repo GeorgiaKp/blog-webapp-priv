@@ -30,7 +30,7 @@ class AppServer {
     this._app.use(`${apiPrefix}auth`, this._authRoute.router);
     this._app.use(`${apiPrefix}users`, this._userRoute.router);
     this._app.use(`${apiPrefix}posts`, this._postRoute.router);
-    this._app.use(`${apiPrefix}categories`, this._categoryRoute.router);
+    this._app.use(`${apiPrefix}categories`, this._categoryRoute);
   }
 
   async runMongo() {
